@@ -1,0 +1,113 @@
+{% extends 'management/base.html' %}
+
+{% block title %}Statistics{% endblock %}
+
+{% block cssStyle %}
+<style>
+body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+  }
+
+  table {
+      width: 80%;
+      border-collapse: collapse;
+      box-shadow: 0 2px 15px rgba(64, 64, 64, 0.1);
+      margin: auto;
+  }
+
+  table th,
+  table td {
+      padding: 12px 15px;
+      text-align: center;
+      border: 1px solid #dddddd;
+  }
+
+  table thead tr {
+      background-color: #009879;
+      color: #ffffff;
+      text-align: center;
+      font-weight: bold;
+  }
+
+  table tbody tr {
+      border-bottom: 1px solid #dddddd;
+  }
+
+  table tbody tr:nth-of-type(even) {
+      background-color: #f3f3f3;
+  }
+
+  table tbody tr:last-of-type {
+      border-bottom: 2px solid #009879;
+  }
+
+  table tbody tr:hover {
+      background-color: #f1f1f1;
+  }
+</style>
+{% endblock %}
+
+
+{% block content %}
+<br>
+<br>
+<br>
+<table style="margin-top:100px">
+    <tr>
+      <td>Event</td>
+      <td>Week</td>
+      <td>month</td>
+      
+      
+    </tr>
+    <tr>    
+      <td>Before breakfast</td>
+      <td>{{ weekly_details.Before_Breakfast }}</td>
+      <td>{{ monthly_details.Before_Breakfast }}</td>
+      
+    </tr>
+    <tr>
+      <td>After breakfast</td>
+      <td>{{ weekly_details.After_Breakfast }}</td>
+      <td>{{ monthly_details.After_Breakfast }}</td>
+      
+      
+      
+      
+    </tr>
+    <tr>
+      <td>Before lunch</td>
+      <td>{{ weekly_details.Before_Lunch }}</td>
+      <td>{{ monthly_details.Before_Lunch }}</td>
+      
+      
+    </tr>
+    <tr>
+        <td>After lunch</td>
+        <td>{{ weekly_details.After_Lunch }}</td>
+        <td>{{ monthly_details.After_Lunch }}</td>
+        
+    </tr>
+    <tr>
+        <td>Before dinner</td>
+        <td>{{ weekly_details.Before_Dinner }}</td>
+        <td>{{ monthly_details.Before_Dinner }}</td>
+        
+        
+        
+      </tr>
+      <tr>
+        <td>After dinner</td>
+        <td>{{ weekly_details.After_Dinner }}</td>
+        <td>{{ monthly_details.After_Dinner }}</td>
+        
+        
+      </tr>
+  </table>
+{% endblock %}

@@ -1,0 +1,224 @@
+{% extends 'management/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block cssStyle %}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background-color:#d8ddd5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        flex-direction: column;
+        margin: 0;
+    }
+
+    .nav-bar {
+        height: 80px;
+        background-color: rgb(60, 98, 155);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: white;
+        padding: 0 20px;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .head h1 {
+        font-size: 24px;
+        animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .border:hover {
+        border: 1px solid white;
+    }
+
+    .nav-bar i {
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .container {
+        max-width: 800px;
+        background-color: white;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .detail {
+        font-size: 20px;
+        font-weight: bold;
+        color: rgb(60, 98, 155);
+        margin-bottom: 10px;
+    }
+
+    .weight {
+        margin-bottom: 20px;
+    }
+
+    .wei-input, select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .wei-input::placeholder {
+        color: #999;
+    }
+
+    button {
+        background-color: rgb(60, 98, 155);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        display: block;
+        margin: 20px auto 0;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: rgb(50, 80, 130);
+    }
+
+    table {
+        width: 80%;
+        border-collapse: collapse;
+        box-shadow: 0 2px 15px rgba(64, 64, 64, 0.1);
+        margin: auto;
+    }
+
+    table th,
+    table td {
+        padding: 12px 15px;
+        text-align: center;
+        border: 1px solid #dddddd;
+    }
+
+    table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+    table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    table tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+    }
+
+    table tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+{% endblock %}
+
+
+
+{% block content %}
+
+<header>
+    <div class="nav-bar">
+        <div class="nav-back border">
+            <i class="fa-solid fa-arrow-left"></i>
+        </div>
+        <div class="head">
+            <h1>Medication</h1>
+        </div>
+        <div class="nav-next border">
+            <i class="fa-solid fa-check"></i>
+        </div>
+    </div>
+</header>
+
+<form action="/api/addMedication/" method="post">
+    {% csrf_token %}
+    
+    <div class="weight">
+        <p class="detail">Medication</p>
+        <input type="text" class="wei-input" name="medication_text">
+    </div>
+
+    <div class="weight">
+        <p class="detail">Unit of measure</p>
+        <!-- <input type="number" class="wei-input" name="dosage"> -->
+        <select name="unit">
+            <option value="unit">unit</option>
+            <option value="tablet">tablet</option>
+        </select>
+    </div>
+
+    <div class="weight">
+        <p class="detail">Dosage</p>
+        <input type="number" class="wei-input" name="dosage">
+    </div>
+
+    <div class="weight">
+        <p class="detail">Date & Time</p>
+        <input placeholder="date:dd/mm/yyyy" class="wei-input" name="medication_date">
+        <input placeholder="time" class="wei-input" name="medication_time">
+    </div>
+
+    <div class="weight">
+        <p class="detail">Notes</p>
+        <input class="wei-input" type="text" name="notes">
+    </div>
+
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+
+fetch('/api/addMedication/', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrftoken,  // Include CSRF token if required
+    },
+    body: JSON.stringify({
+        user_id: 1,  // Replace with actual user ID
+        medication_name: 'Metformin',
+        dosage: '500mg',
+    })
+})
+.then(response => response.json())
+.then(data => {
+    console.log(data);
+});
+
+</script>
+{% endblock %}

@@ -1,0 +1,228 @@
+<html>
+
+<head>
+    <title>Login Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "poppins", sans-serif;
+            /* for all */
+        }
+
+
+        body {
+
+            min-height: 100vh;
+            /* Make the body take up the full viewport height */
+            display: flex;
+            justify-content: center;
+            /* Center items horizontally */
+            align-items: center;
+            /* Center items vertically */
+            font-family: "poppins", sans-serif;
+            background: url(MAMMU2.jpg) no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+
+        .container {
+            width: 420px;
+            color: antiquewhite;
+            border-radius: 12px;
+            padding: 30px 40px;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+
+        }
+
+        .container h2 {
+            font-size: 36px;
+            text-align: center;
+            color: black;
+        }
+
+        .container .form-group {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            margin: 30px 0;
+        }
+
+        .form-group input {
+            width: 100%;
+            height: 100%;
+            background: rgb(218, 218, 218) ;
+            border: none;
+            outline: none;
+            border: 2px solid rgba(32, 24, 24, 0.925);
+            border-radius: 40px;
+            font-size: 16px;
+            color: black;
+            padding: 20px 45px 20px 20px;
+        }
+
+        .form-group input::placeholder {
+            color: black;
+        }
+
+        .form-group i {
+            position: absolute;
+            right: 20px;
+            top: 30%;
+            transform: translate(-50%);
+            font-size: 20px;
+            color: black;
+        }
+
+
+        .container .remember-forget {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14.5px;
+            margin: -15px 0 15px;
+            color: black;
+        }
+
+        .remember-forget label input {
+            accent-color: black;
+            margin-right: 3px;
+        }
+
+        .remember-forget a {
+            color: black;
+            text-decoration: none;
+        }
+
+        .remember-forget a:hover {
+            text-decoration: underline;
+            color: black;
+        }
+
+        .container .btn {
+            width: 100%;
+            height: 45px;
+            background: rgb(7, 209, 17);
+            border: none;
+            outline: none;
+            border-radius: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+            cursor: pointer;
+            font-size: 15px;
+            color: black;
+            font-weight: 600;
+        }
+
+        .container .register-link {
+            font-size: 14.5px;
+            text-align: center;
+            margin-top: 20px;
+            color: black;
+        }
+
+        .register-link p a {
+            color: black;
+            text-decoration: none;
+        }
+
+        .register-link p a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+
+<div class="container">
+  <img src="" alt="">
+    <h2>Login</h2>
+  
+    <form id="login-form">
+      <div class="form-group">
+        <input type="text" id="username" name="username" required placeholder="Username">
+        <i class='bx bxs-user'></i>
+      </div>
+  
+      <div class="form-group">
+        <input type="password" id="password" name="password" required placeholder="Password">
+        <i class='bx bxs-lock'></i>
+      </div>
+  
+      <div class="remember-forget">
+        <label><input type="checkbox" name="remember_me">Remember Me</label>
+        <a href="#">Forgot Password</a>
+      </div>
+  
+      <button type="submit" class="btn">Login</button>
+      <div class="register-link">
+        <p>Don't have an account? <a href="/signup/">Sign up here</a>.</p>
+      </div>
+    </form>
+  
+    <div id="login-message"></div>
+  </div>
+  
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      var username = document.getElementById('username').value;
+      var password = document.getElementById('password').value;
+      var csrfToken = '{{ csrf_token }}';
+  
+      fetch("{% url 'signInCheck' %}", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfToken
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        var loginMessage = document.getElementById('login-message');
+        if (data.status === 'success') {
+          loginMessage.innerHTML = '<p style="color: green;">' + data.message + '</p>';
+          localStorage.setItem('userId', data.id);
+          location.href = '/' + data.id;
+        } else {
+          loginMessage.innerHTML = '<p style="color: red;">' + data.message + '</p>';
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+  </script>
+  
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the form from submitting
+
+            // Get input values
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Simple validation (you can add more complex validation if needed)
+            if (username.trim() === '' || password.trim() === '') {
+                alert('Please enter both username and password.');
+                return; // Prevent further execution
+            }
+
+            // Handle remember me checkbox
+            const rememberMe = document.querySelector('input[type="checkbox"]').checked;
+
+            
+        });
+
+        
+    });
+</script>
+
+</html>

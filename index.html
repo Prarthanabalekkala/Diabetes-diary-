@@ -1,0 +1,18 @@
+{% extends 'management/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block cssStyle %} 
+
+
+{% endblock %}
+{% block content %}
+    <h2>Welcome to  Diabetes Diary</h2>
+    <p>This is the home page of the app where you can manage your diabetes-related information.</p>
+    <nav>
+        <ul>
+            <li><a href="{% url 'about_page' %}">About</a></li>
+            <!-- other links -->
+        </ul>
+    </nav>
+{% endblock %}
