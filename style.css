@@ -1,0 +1,31 @@
+@media (max-width: 600px) {
+    h1 {
+        font-size: 24px;
+    }
+    li {
+        padding: 5px;
+    }
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #030303;
+    margin: 0;
+    padding: 0;
+}
+h1 {
+    background-color: #a81212;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+li {
+    background-color: #fff;
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
